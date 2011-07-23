@@ -1,10 +1,10 @@
-PHP-CodeSniffer plugin for Emacs Flymake mode
+PHP_CodeSniffer plugin for Emacs Flymake mode
 =============================================
 
 Flymake mode is an Emacs mode that allows you to run continuous
 syntax checks against the current buffer "While U Type".
 
-PHP-CodeSniffer is a static analysis tool for PHP that can be
+PHP_CodeSniffer is a static analysis tool for PHP that can be
 configured to produce a wide range of warnings and errors
 according to various customizable coding standards.
 
@@ -19,7 +19,7 @@ applied, you can grab them from here:
 
  *  https://github.com/illusori/emacs-flymake
 
-You will also need PHP-CodeSniffer installed, this can be installed
+You will also need PHP_CodeSniffer installed, this can be installed
 via PEAR or you can get the most recent from SVN here:
 
  * http://svn.php.net/repository/pear/packages/PHP_CodeSniffer/trunk
@@ -35,3 +35,11 @@ something like the following to your .emacs:
 ```
 
 Have fun.
+
+See Also
+--------
+
+If you want undefined and unused variable warnings, you might be
+interested in my PHP_CodeSniffer-VariableAnalysis plugin:
+
+ * https://github.com/illusori/PHP_Codesniffer-VariableAnalysis
