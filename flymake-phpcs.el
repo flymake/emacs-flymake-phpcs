@@ -19,21 +19,23 @@
   :group 'flymake-phpcs
   :type 'string)
 
-;; Add a new error pattern to catch PHP-CodeSniffer output
 (eval-after-load "flymake"
-  '(add-to-list 'flymake-err-line-patterns
-                '("\\(.*\\):\\([0-9]+\\):\\([0-9]+\\): \\(.*\\)" 1 2 3 4))
+  '(progn
+    ;; Add a new error pattern to catch PHP-CodeSniffer output
+    (add-to-list 'flymake-err-line-patterns
+                 '("\\(.*\\):\\([0-9]+\\):\\([0-9]+\\): \\(.*\\)" 1 2 3 4))
+    (defun flymake-php-init ()
+      (let* ((temp-file (flymake-init-create-temp-buffer-copy
+                          (if (fboundp 'flymake-create-temp-copy)
+                            'flymake-create-temp-copy
+                            'flymake-create-temp-inplace)))
+             (local-file (file-relative-name temp-file
+                           (file-name-directory buffer-file-name))))
+      (list flymake-phpcs-command
+        (list local-file (concat "--standard=" flymake-phpcs-standard))))
+      )
+    (add-hook 'php-mode-hook (lambda() (flymake-mode 1)))
+    )
   )
-
-(defun flymake-php-init ()
-  (let* ((temp-file (flymake-init-create-temp-buffer-copy
-                     'flymake-create-temp-copy))
-         (local-file  (file-relative-name
-                       temp-file
-                       (file-name-directory buffer-file-name))))
-    (list flymake-phpcs-command (list local-file (concat "--standard=" flymake-phpcs-standard))))
-  )
-
-(add-hook 'php-mode-hook (lambda() (flymake-mode 1)))
 
 (provide 'flymake-phpcs)

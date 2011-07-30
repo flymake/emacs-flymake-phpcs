@@ -14,23 +14,23 @@ static analysis as you edit.
 Setup
 -----
 
-You will need to have a copy of flymake.el that has my patches
-applied, you can grab them from here:
-
- *  https://github.com/illusori/emacs-flymake
-
 You will also need PHP_CodeSniffer installed, this can be installed
 via PEAR or you can get the most recent from SVN here:
 
  * http://svn.php.net/repository/pear/packages/PHP_CodeSniffer/trunk
 
-Once you have both of those installed you can install
-flymake-phpcs.el somewhere that emacs can find it and add
+Once you have PHP_CodeSniffer installed you can install
+flymake-phpcs.el somewhere in your emacs load-path and add
 something like the following to your .emacs:
 
 ```lisp
+;; If flymake_phpcs isn't in your $PATH, specify the full path
 (setq flymake-phpcs-command "~/projects/emacs-flymake-phpcs/bin/flymake_phpcs")
-(setq flymake-phpcs-standard "/Users/illusori/projects/devtools/php_codesniffer/MyCompanyStandard")
+
+;; Customize the coding standard checked by phpcs
+(setq flymake-phpcs-standard
+  "/Users/illusori/projects/devtools/php_codesniffer/MyCompanyStandard")
+
 (require 'flymake-phpcs)
 ```
 
@@ -43,3 +43,16 @@ If you want undefined and unused variable warnings, you might be
 interested in my PHP_CodeSniffer-VariableAnalysis plugin:
 
  * https://github.com/illusori/PHP_Codesniffer-VariableAnalysis
+
+You might also be interested in my patched version of flymake.el
+which contains fixes and enhancements that can be used by flymake-phpcs.el,
+you can grab it from here:
+
+ *  https://github.com/illusori/emacs-flymake
+
+Known Issues & Bugs
+-------------------
+
+ * flymake-phpcs-standard is not file-name expanded within emacs, so if
+   you use "~/whatever/Standard" the ~ is passed to phpcs, which also
+   doesn't expand it.
