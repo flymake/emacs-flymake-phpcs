@@ -32,7 +32,11 @@
              (local-file (file-relative-name temp-file
                            (file-name-directory buffer-file-name))))
       (list flymake-phpcs-command
-        (list local-file (concat "--standard=" flymake-phpcs-standard))))
+        (list local-file (concat "--standard="
+          ;; Looking for "/" is hardly portable
+          (if (string-match "/" flymake-phpcs-standard)
+            (expand-file-name flymake-phpcs-standard)
+            flymake-phpcs-standard)))))
       )
     (add-hook 'php-mode-hook (lambda() (flymake-mode 1)))
     )

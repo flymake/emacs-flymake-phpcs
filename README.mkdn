@@ -29,7 +29,7 @@ something like the following to your .emacs:
 
 ;; Customize the coding standard checked by phpcs
 (setq flymake-phpcs-standard
-  "/Users/illusori/projects/devtools/php_codesniffer/MyCompanyStandard")
+  "~/projects/devtools/php_codesniffer/MyCompanyStandard")
 
 (require 'flymake-phpcs)
 ```
@@ -53,6 +53,6 @@ you can grab it from here:
 Known Issues & Bugs
 -------------------
 
- * flymake-phpcs-standard is not file-name expanded within emacs, so if
-   you use "~/whatever/Standard" the ~ is passed to phpcs, which also
-   doesn't expand it.
+ * flymake-phpcs-standard file-name expansion is triggered by presence
+   of a / in the value, which isn't portable across OSes that use other
+   directory delimiters.
