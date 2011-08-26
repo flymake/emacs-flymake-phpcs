@@ -1,13 +1,19 @@
-;; A replcement flymake handler for PHP to invoke PHP-CodeSniffer
-;;
-;; This makes use of features in my fork of flymake.el found at:
-;;   https://github.com/illusori/emacs-flymake
+;;; flymake-phpcs.el --- Flymake handler for PHP to invoke PHP-CodeSniffer
 ;;
 ;; Author: Sam Graham <libflymake-phpcs-emacs BLAHBLAH illusori.co.uk>
-;; Homepage: https://github.com/illusori/emacs-flymake-phpcs
+;; Maintainer: Sam Graham <libflymake-phpcs-emacs BLAHBLAH illusori.co.uk>
+;; URL: https://github.com/illusori/emacs-flymake-phpcs
+;; Version: 1.0
+;; Package-Requires: ((flymake "0.3"))
 ;;
-;; Usage:
-;;   (require 'flymake-phpcs)
+;;; Commentary:
+;;
+;; flymake-phpcs.el adds support for running PHP_CodeSniffer
+;; (http://pear.php.net/package/PHP_CodeSniffer/) to perform static
+;; analysis of your PHP file in addition to syntax checking.
+;;
+;;; Usage:
+;; (require 'flymake-phpcs)
 
 (defcustom flymake-phpcs-command "phpcs_flymake"
   "If phpcs_flymake isn't in your $PATH, set this to the command needed to run it."
@@ -43,3 +49,4 @@
   )
 
 (provide 'flymake-phpcs)
+;;; flymake-phpcs.el ends here
