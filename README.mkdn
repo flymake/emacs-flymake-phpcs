@@ -31,6 +31,11 @@ something like the following to your .emacs:
 (setq flymake-phpcs-standard
   "~/projects/devtools/php_codesniffer/MyCompanyStandard")
 
+;; Show the name of sniffs in warnings (eg show
+;; "Generic.CodeAnalysis.VariableAnalysis.UnusedVariable" in an unused
+;; variable warning)
+(setq flymake-phpcs-show-rule t)
+
 (require 'flymake-phpcs)
 ```
 

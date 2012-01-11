@@ -1,0 +1,7 @@
+* flymake-perlcritic.el 1.0.1 (2012-01-11-22:48)
+  * Add support for toggle of sniff names in errors.
+    (Requires PHP_CodeSniffer >= 1.3.4 or from GitHub.)
+  * Add help-text to flymake_phpcs.
+  * Bequeath copyright to FSF and add GPL license.
+  * Define init function as flymake-phpcs-*.
+  * Override Flymake PHP functions less evilly.

@@ -30,6 +30,8 @@
 ;;; Usage:
 ;; (require 'flymake-phpcs)
 
+(eval-when-compile (require 'flymake))
+
 (defcustom flymake-phpcs-command "phpcs_flymake"
   "If phpcs_flymake isn't in your $PATH, set this to the command needed to run it."
   :group 'flymake-phpcs
@@ -40,28 +42,37 @@
   :group 'flymake-phpcs
   :type 'string)
 
+(defcustom flymake-phpcs-show-rule nil
+  "Whether to display the name of the phpcs rule generating any errors or warnings."
+  :group 'flymake-phpcs
+  :type 'boolean)
+
+(defun flymake-phpcs-init ()
+  (let* ((temp-file (flymake-init-create-temp-buffer-copy
+                      (if (fboundp 'flymake-create-temp-copy)
+                        'flymake-create-temp-copy
+                        'flymake-create-temp-inplace)))
+         (local-file (file-relative-name temp-file
+                       (file-name-directory buffer-file-name))))
+    (list flymake-phpcs-command
+      (append
+        (list local-file)
+        (if flymake-phpcs-standard
+          (list (concat "--standard="
+            ;; Looking for "/" is hardly portable
+            (if (string-match "/" flymake-phpcs-standard)
+              (expand-file-name flymake-phpcs-standard)
+              flymake-phpcs-standard))))
+        (if flymake-phpcs-show-rule (list "-s"))))))
+
 (eval-after-load "flymake"
   '(progn
     ;; Add a new error pattern to catch PHP-CodeSniffer output
     (add-to-list 'flymake-err-line-patterns
                  '("\\(.*\\):\\([0-9]+\\):\\([0-9]+\\): \\(.*\\)" 1 2 3 4))
-    (defun flymake-php-init ()
-      (let* ((temp-file (flymake-init-create-temp-buffer-copy
-                          (if (fboundp 'flymake-create-temp-copy)
-                            'flymake-create-temp-copy
-                            'flymake-create-temp-inplace)))
-             (local-file (file-relative-name temp-file
-                           (file-name-directory buffer-file-name))))
-      (list flymake-phpcs-command
-        (list local-file (concat "--standard="
-          ;; Looking for "/" is hardly portable
-          (if (string-match "/" flymake-phpcs-standard)
-            (expand-file-name flymake-phpcs-standard)
-            flymake-phpcs-standard)))))
-      )
-    (add-hook 'php-mode-hook (lambda() (flymake-mode 1)))
-    )
-  )
+    (let ((mode-and-masks (flymake-get-file-name-mode-and-masks "example.php")))
+      (setcar mode-and-masks 'flymake-phpcs-init))
+    (add-hook 'php-mode-hook (lambda() (flymake-mode 1)))))
 
 (provide 'flymake-phpcs)
 ;;; flymake-phpcs.el ends here
