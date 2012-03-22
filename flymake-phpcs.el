@@ -32,8 +32,11 @@
 
 (eval-when-compile (require 'flymake))
 
-(defcustom flymake-phpcs-command "phpcs_flymake"
-  "If phpcs_flymake isn't in your $PATH, set this to the command needed to run it."
+(defcustom flymake-phpcs-command (executable-find (concat 
+                                                   (file-name-directory
+                                                    (or load-file-name buffer-file-name))
+                                                   "bin/flymake_phpcs"))
+  "Location of flymake_phpcs wrapper."
   :group 'flymake-phpcs
   :type 'string)
 
