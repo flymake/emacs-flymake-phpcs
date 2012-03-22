@@ -24,7 +24,7 @@ flymake-phpcs.el somewhere in your emacs load-path and add
 something like the following to your .emacs:
 
 ```lisp
-;; If flymake_phpcs isn't in your $PATH, specify the full path
+;; If flymake_phpcs isn't found correctly, specify the full path
 (setq flymake-phpcs-command "~/projects/emacs-flymake-phpcs/bin/flymake_phpcs")
 
 ;; Customize the coding standard checked by phpcs

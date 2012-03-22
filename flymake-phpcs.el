@@ -5,7 +5,7 @@
 ;; Author: Sam Graham <libflymake-phpcs-emacs BLAHBLAH illusori.co.uk>
 ;; Maintainer: Sam Graham <libflymake-phpcs-emacs BLAHBLAH illusori.co.uk>
 ;; URL: https://github.com/illusori/emacs-flymake-phpcs
-;; Version: 1.0.1
+;; Version: 1.0.2
 ;; Package-Requires: ((flymake "0.3"))
 ;;
 ;; This program is free software: you can redistribute it and/or modify
@@ -32,7 +32,7 @@
 
 (eval-when-compile (require 'flymake))
 
-(defcustom flymake-phpcs-command (executable-find (concat 
+(defcustom flymake-phpcs-command (executable-find (concat
                                                    (file-name-directory
                                                     (or load-file-name buffer-file-name))
                                                    "bin/flymake_phpcs"))
