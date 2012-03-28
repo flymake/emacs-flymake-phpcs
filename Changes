@@ -1,3 +1,7 @@
+* flymake-perlcritic.el 1.0.4 (2012-03-28-06:08)
+  * Append flymake-mode enable to php-hook rather than prepend.
+    (Contributed by arnested.)
+
 * flymake-perlcritic.el 1.0.3 (2012-03-22-16:49)
   * Fixed accidental inclusion of Makefile in previous patch.
 

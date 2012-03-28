@@ -5,7 +5,7 @@
 ;; Author: Sam Graham <libflymake-phpcs-emacs BLAHBLAH illusori.co.uk>
 ;; Maintainer: Sam Graham <libflymake-phpcs-emacs BLAHBLAH illusori.co.uk>
 ;; URL: https://github.com/illusori/emacs-flymake-phpcs
-;; Version: 1.0.3
+;; Version: 1.0.4
 ;; Package-Requires: ((flymake "0.3"))
 ;; This program is free software: you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by
