@@ -43,6 +43,7 @@
   "The coding standard to pass to phpcs via --standard."
   :group 'flymake-phpcs
   :type 'string)
+(put 'flymake-phpcs-standard 'safe-local-variable 'string-or-null-p)
 
 (defcustom flymake-phpcs-show-rule nil
   "Whether to display the name of the phpcs rule generating any errors or warnings."
