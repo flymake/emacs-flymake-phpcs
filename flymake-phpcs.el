@@ -44,7 +44,9 @@
   :group 'flymake-phpcs
   :type 'string)
 (make-variable-buffer-local 'flymake-phpcs-standard)
-(put 'flymake-phpcs-standard 'safe-local-variable 'string-or-null-p)
+(put 'flymake-phpcs-standard 'safe-local-variable (lambda (value)
+                                                    (and (string-or-null-p value)
+                                                         (not (file-exists-p value)))))
 
 (defcustom flymake-phpcs-show-rule nil
   "Whether to display the name of the phpcs rule generating any errors or warnings."
