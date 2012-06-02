@@ -42,16 +42,41 @@
 (defcustom flymake-phpcs-standard "PEAR"
   "The coding standard to pass to phpcs via --standard."
   :group 'flymake-phpcs
-  :type 'string)
-(make-variable-buffer-local 'flymake-phpcs-standard)
-(put 'flymake-phpcs-standard 'safe-local-variable (lambda (value)
-                                                    (and (string-or-null-p value)
-                                                         (not (file-exists-p value)))))
+  :type 'string
+  :safe '(lambda (value) (and (string-or-null-p value) (not (file-exists-p value))))
+;;  :set  '(lambda (symbol value) (progn
+;;    (set-default symbol value)
+;;    (message "set flymake-phpcs to %s in buffer %s" value (current-buffer))
+;;    (flymake-phpcs-restart-syntax-check))))
+  )
 
 (defcustom flymake-phpcs-show-rule nil
   "Whether to display the name of the phpcs rule generating any errors or warnings."
   :group 'flymake-phpcs
   :type 'boolean)
+
+(defun flymake-phpcs-customized-settings-p ()
+  "Returns t if any flymake-phpcs settings have been customized for the current buffer."
+  (or (not (equal (default-value 'flymake-phpcs-standard) flymake-phpcs-standard))))
+
+(defun flymake-phpcs-restart-syntax-check ()
+  "Cancel any existing the Flymake syntax check for the current buffer and request a new one."
+    (when flymake-mode
+      (if (fboundp 'flymake-restart-syntax-check)
+        (flymake-restart-syntax-check)
+        (dolist (proc flymake-processes)
+          (if (equal (process-buffer proc) (current-buffer)) (flymake-kill-process proc)))
+;; TODO: this only works with my flymake, for compat need to do delayed restart
+;; TODO: is also race condition between dequeue and async process termination
+        (flymake-queue-syntax-check (current-buffer)))))
+
+(defun flymake-phpcs-restart-syntax-check-if-customized ()
+  "Function to run from `hack-local-variables-hook' to notice when
+flymake-phpcs settings have been customized in local variables and
+to restart any running syntax check if they have."
+(message "restart if customized")
+  (if (and flymake-mode (flymake-phpcs-customized-settings-p))
+    (flymake-phpcs-restart-syntax-check)))
 
 (defun flymake-phpcs-init ()
   (let* ((temp-file (flymake-init-create-temp-buffer-copy
@@ -78,7 +103,8 @@
                  '("\\(.*\\):\\([0-9]+\\):\\([0-9]+\\): \\(.*\\)" 1 2 3 4))
     (let ((mode-and-masks (flymake-get-file-name-mode-and-masks "example.php")))
       (setcar mode-and-masks 'flymake-phpcs-init))
-    (add-hook 'php-mode-hook (lambda() (flymake-mode 1)) t)))
+    (add-hook 'php-mode-hook (lambda() (flymake-mode 1)) t)
+    (add-hook 'hack-local-variables-hook 'flymake-phpcs-restart-syntax-check-if-customized t)))
 
 (provide 'flymake-phpcs)
 ;;; flymake-phpcs.el ends here
