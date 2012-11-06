@@ -74,6 +74,7 @@
                  '("\\(.*\\):\\([0-9]+\\):\\([0-9]+\\): \\(.*\\)" 1 2 3 4))
     (let ((mode-and-masks (flymake-get-file-name-mode-and-masks "example.php")))
       (setcar mode-and-masks 'flymake-phpcs-init))
+    (add-hook 'php+-mode-hook (lambda() (flymake-mode 1)))
     (add-hook 'php-mode-hook (lambda() (flymake-mode 1)) t)))
 
 (provide 'flymake-phpcs)
