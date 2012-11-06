@@ -1,3 +1,7 @@
+* flymake-perlcritic.el 1.0.5 (2012-11-06-15:16)
+  * Add support for php+-mode.
+    (Contributed by @mgallego.)
+
 * flymake-perlcritic.el 1.0.4 (2012-03-28-06:08)
   * Append flymake-mode enable to php-hook rather than prepend.
     (Contributed by arnested.)

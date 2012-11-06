@@ -5,7 +5,7 @@
 ;; Author: Sam Graham <libflymake-phpcs-emacs BLAHBLAH illusori.co.uk>
 ;; Maintainer: Sam Graham <libflymake-phpcs-emacs BLAHBLAH illusori.co.uk>
 ;; URL: https://github.com/illusori/emacs-flymake-phpcs
-;; Version: 1.0.4
+;; Version: 1.0.5
 ;; Package-Requires: ((flymake "0.3"))
 ;; This program is free software: you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by
@@ -74,7 +74,7 @@
                  '("\\(.*\\):\\([0-9]+\\):\\([0-9]+\\): \\(.*\\)" 1 2 3 4))
     (let ((mode-and-masks (flymake-get-file-name-mode-and-masks "example.php")))
       (setcar mode-and-masks 'flymake-phpcs-init))
-    (add-hook 'php+-mode-hook (lambda() (flymake-mode 1)))
+    (add-hook 'php+-mode-hook (lambda() (flymake-mode 1)) t)
     (add-hook 'php-mode-hook (lambda() (flymake-mode 1)) t)))
 
 (provide 'flymake-phpcs)
