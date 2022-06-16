@@ -2,6 +2,9 @@
          "1.0.5"
          "Flymake handler for PHP to invoke PHP-CodeSniffer")
 
+(website-url "https://github.com/illusori/emacs-flymake-phpcs")
+(keywords "")
+
 (package-file "flymake-phpcs.el")
 
 (source "melpa")
