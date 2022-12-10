@@ -7,6 +7,8 @@
 
 (package-file "flymake-phpcs.el")
 
+(script "test" "echo \"Error: no test specified\" && exit 1")
+
 (source "melpa")
 (source "gnu")
 
