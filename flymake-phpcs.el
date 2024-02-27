@@ -1,6 +1,6 @@
 ;;; flymake-phpcs.el --- Flymake handler for PHP to invoke PHP-CodeSniffer
 ;;
-;; Copyright (C) 2011-2012  Free Software Foundation, Inc.
+;; Copyright (C) 2011-2012, 2014  Free Software Foundation, Inc.
 ;;
 ;; Author: Sam Graham <libflymake-phpcs-emacs BLAHBLAH illusori.co.uk>
 ;; Maintainer: Sam Graham <libflymake-phpcs-emacs BLAHBLAH illusori.co.uk>
@@ -55,7 +55,7 @@
                         'flymake-create-temp-copy
                         'flymake-create-temp-inplace)))
          (local-file (file-relative-name temp-file
-                       (file-name-directory buffer-file-name))))
+                       (file-name-directory (file-truename buffer-file-name)))))
     (list flymake-phpcs-command
       (append
         (list local-file)
