@@ -28,7 +28,7 @@ something like the following to your .emacs:
 (setq flymake-phpcs-command "~/projects/emacs-flymake-phpcs/bin/flymake_phpcs")
 
 ;; Customize the coding standard checked by phpcs
-(setq flymake-phpcs-standard
+(set-default 'flymake-phpcs-standard
   "~/projects/devtools/php_codesniffer/MyCompanyStandard")
 
 ;; Show the name of sniffs in warnings (eg show
