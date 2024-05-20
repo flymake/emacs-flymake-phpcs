@@ -1,6 +1,6 @@
 ;;; flymake-phpcs.el --- Flymake handler for PHP to invoke PHP-CodeSniffer
 ;;
-;; Copyright (C) 2011-2012  Free Software Foundation, Inc.
+;; Copyright (C) 2011-2012, 2014  Free Software Foundation, Inc.
 ;;
 ;; Author: Sam Graham <libflymake-phpcs-emacs BLAHBLAH illusori.co.uk>
 ;; Maintainer: Sam Graham <libflymake-phpcs-emacs BLAHBLAH illusori.co.uk>
@@ -42,6 +42,9 @@
 (defcustom flymake-phpcs-standard "PEAR"
   "The coding standard to pass to phpcs via --standard."
   :group 'flymake-phpcs
+  :safe (lambda (value)
+          (and (string-or-null-p value)
+               (not (file-exists-p value))))
   :type 'string)
 
 (defcustom flymake-phpcs-show-rule nil
